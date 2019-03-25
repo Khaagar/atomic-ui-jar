@@ -1,0 +1,11 @@
+<input
+  [placeholder]="placeholder"
+  [name]="name"
+  [type]="inputType"
+  [disabled]="disabled"
+  [class.disabled]="disabled"
+  [class.error]="touched && error"
+  [class.touched]="touched"
+  (click)="onTouched()"
+  (input)="propagateChange($event.target.value)"
+/>

@@ -10,7 +10,7 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "sass"
+          "style": "scss"
         }
       },
       "architect": {
@@ -27,7 +27,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -128,6 +129,134 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ui-jar": {
+      "root": "projects/ui-jar/",
+      "sourceRoot": "projects/ui-jar/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ui-jar",
+            "index": "projects/ui-jar/src/index.html",
+            "main": "projects/ui-jar/src/main.ts",
+            "polyfills": "projects/ui-jar/src/polyfills.ts",
+            "tsConfig": "projects/ui-jar/tsconfig.app.json",
+            "assets": [
+              "projects/ui-jar/src/favicon.ico",
+              "projects/ui-jar/src/assets"
+            ],
+            "styles": [
+              "projects/ui-jar/src/styles.css",
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ui-jar/src/environments/environment.ts",
+                  "with": "projects/ui-jar/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ui-jar:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ui-jar:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ui-jar:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ui-jar/src/test.ts",
+            "polyfills": "projects/ui-jar/src/polyfills.ts",
+            "tsConfig": "projects/ui-jar/tsconfig.spec.json",
+            "karmaConfig": "projects/ui-jar/karma.conf.js",
+            "styles": [
+              "projects/ui-jar/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ui-jar/src/favicon.ico",
+              "projects/ui-jar/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ui-jar/tsconfig.app.json",
+              "projects/ui-jar/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ui-jar-e2e": {
+      "root": "projects/ui-jar-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ui-jar-e2e/protractor.conf.js",
+            "devServerTarget": "ui-jar:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ui-jar:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/ui-jar-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]

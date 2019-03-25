@@ -1,0 +1,27 @@
+@import '../../../../../../assets/css-helpers/colors.scss';
+label{
+    font-family: 'Rubik';
+    font-style: '500';
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-left:12px;
+    font-weight: 500;
+    line-height: 2;
+    letter-spacing: 0.2px;
+    color: $dusk-blue;
+    &.focused{
+        color: $navy-blue;
+    }
+    &.error {
+        color: $intense-red;
+        &.focused{
+            color: $thick-red;
+        }
+    }
+    &.disabled {
+        .focused {
+            color: $gray;
+        }
+        color: $gray;
+    }
+}
